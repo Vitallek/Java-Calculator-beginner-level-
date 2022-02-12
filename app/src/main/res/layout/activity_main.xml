@@ -19,13 +19,16 @@
 
     <EditText
         android:id="@+id/inputField"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:autofillHints="1+1=11"
+        android:textSize="40sp"
+        android:hint="@string/inputHint"
+        android:textColorHint="@color/dark_gray"
+        android:textAlignment="textEnd"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="input "
+        android:importantForAutofill="no"
+        android:background="@null"
 
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -268,10 +271,11 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonPoint"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonBackspace"
             style="@style/usualButton"
-            android:text="@string/backspaceText"
+            android:contentDescription="@string/backspaceText"
+            android:src="@drawable/ic_baseline_backspace_24"
 
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintVertical_weight="1"
@@ -283,7 +287,7 @@
 
         <Button
             android:id="@+id/buttonEqual"
-            style="@style/usualButton"
+            style="@style/equalsButton"
             android:text="@string/equalsText"
 
             app:layout_constraintHorizontal_weight="2"

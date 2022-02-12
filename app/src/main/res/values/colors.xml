@@ -10,4 +10,7 @@
 
     <color name="white_orange">#FFD580</color>
     <color name="dark_orange">#ff8c00</color>
+
+    <color name="dark_gray">#3d3d3d</color>
+    <color name="light_gray">#727272</color>
 </resources>
