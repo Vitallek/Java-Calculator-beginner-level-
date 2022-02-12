@@ -10,7 +10,10 @@
         android:id="@+id/showResultField"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="change me"
+        android:hint="@string/resultHint"
+        android:textColorHint="@color/light_gray"
+        android:textSize="30sp"
+        android:gravity="center"
 
         app:layout_constraintBottom_toTopOf="@+id/inputField"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +24,7 @@
         android:id="@+id/inputField"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:hint="@string/inputHint"
         android:textColorHint="@color/dark_gray"
         android:textAlignment="textEnd"
@@ -271,19 +274,20 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonPoint"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/buttonBackspace"
             style="@style/usualButton"
             android:contentDescription="@string/backspaceText"
-            android:src="@drawable/ic_baseline_backspace_24"
+            android:onClick="zeroBTNPush"
 
+            android:text="@string/backspaceText"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintVertical_weight="1"
             app:layout_constraintLeft_toRightOf="@+id/buttonClear"
-            app:layout_constraintRight_toLeftOf="@+id/buttonEqual"
 
+            app:layout_constraintRight_toLeftOf="@+id/buttonEqual"
             app:layout_constraintTop_toBottomOf="@+id/button0"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintVertical_weight="1" />
 
         <Button
             android:id="@+id/buttonEqual"
