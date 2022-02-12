@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Calculator</string>
+
+    <string name="oneText">1</string>
+    <string name="twoText">2</string>
+    <string name="threeText">3</string>
+    <string name="fourText">4</string>
+    <string name="fiveText">5</string>
+    <string name="sixText">6</string>
+    <string name="sevenText">7</string>
+    <string name="eightText">8</string>
+    <string name="nineText">9</string>
+    <string name="zeroText">0</string>
+    <string name="pointText">.</string>
+
+    <string name="plusText">+</string>
+    <string name="minusText">-</string>
+    <string name="multiplyText">×</string>
+    <string name="divideText">÷</string>
+    <string name="equalsText">=</string>
+
+    <string name="percentText">%</string>
+    <string name="allClearText">AC</string>
+    <string name="backspaceText">⌫</string>
+
+    <string name="openBracketText">(</string>
+    <string name="closeBracketText">)</string>
+    <string name="powerText">^</string>
+    <string name="exponentText">E</string>
+    <string name="piText">PI</string>
+    <string name="sinText">SIN</string>
+    <string name="vosText">COS</string>
+    <string name="tanText">TG</string>
+    <string name="log10Text">LOG</string>
+    <string name="historyText">HISTORY</string>
+
+
 </resources>
