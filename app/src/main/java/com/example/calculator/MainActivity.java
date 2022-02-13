@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         btnHistory = findViewById(R.id.buttonHistory);
 
         View.OnClickListener onClkBtn = new View.OnClickListener() {
-            @SuppressLint("NonConstantResourceId")
+
             @Override
             public void onClick(View view) {
                 switch (view.getId()){
