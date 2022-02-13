@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder percentPart = new StringBuilder(""); //for simple percent operations like 50% = 0.5
         percentPart.setLength(0);
 
-        while(digitIndex >= 0 && Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.'){ //a number before % to percentPart
+        while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before % to percentPart
             percentPart.append(strToDisplay.charAt(digitIndex));
             strToDisplay.deleteCharAt(digitIndex);
             digitIndex--;
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         strToDisplay.append(String.valueOf(percentPartResult));
 
         display.setText(strToDisplay);
-        display.setSelection(digitIndex + percentPart.length());
+        display.setSelection(digitIndex + percentPart.length()+1);
 
         //part2
         if(strToDisplay.charAt(digitIndex) == '-' || strToDisplay.charAt(digitIndex) == '+'){
