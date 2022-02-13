@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Calculator</string>
 
-    <string name="inputHint">1+1=11</string>
+    <string name="inputHint">1+1=11 :)</string>
     <string name="resultHint">Made by Vitallek</string>
 
     <string name="oneText">1</string>

@@ -74,6 +74,57 @@ public class MainActivity extends AppCompatActivity {
                 if(view.getId() == R.id.button2){
                     updateText(getResources().getString(R.string.twoText));
                 }
+                if(view.getId() == R.id.button3){
+                    updateText(getResources().getString(R.string.threeText));
+                }
+                if(view.getId() == R.id.button4){
+                    updateText(getResources().getString(R.string.fourText));
+                }
+                if(view.getId() == R.id.button5){
+                    updateText(getResources().getString(R.string.fiveText));
+                }
+                if(view.getId() == R.id.button6){
+                    updateText(getResources().getString(R.string.sixText));
+                }
+                if(view.getId() == R.id.button7){
+                    updateText(getResources().getString(R.string.sevenText));
+                }
+                if(view.getId() == R.id.button8){
+                    updateText(getResources().getString(R.string.eightText));
+                }
+                if(view.getId() == R.id.button9){
+                    updateText(getResources().getString(R.string.nineText));
+                }
+                if(view.getId() == R.id.button0){
+                    updateText(getResources().getString(R.string.zeroText));
+                }
+                if(view.getId() == R.id.buttonDivide){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonMul){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonMinus){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonPlus){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonPoint){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonPercent){
+                    updateText(getResources().getString(R.string.twoText));
+                }
+                if(view.getId() == R.id.buttonClear){
+                    clearField();
+                }
+                if(view.getId() == R.id.buttonBackspace){
+                    //
+                }
+                if(view.getId() == R.id.buttonEqual){
+                    //
+                }
             }
         };
 
@@ -100,8 +151,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateText(String strToAdd){
         int cursorPos = display.getSelectionStart();
+        //my own may(works?)
         strToDisplay.insert(cursorPos,strToAdd);
+
+        //way from video(works)
+//        String oldStr = display.getText().toString();
+//        String leftStr = oldStr.substring(0, cursorPos);
+//        String rightStr = oldStr.substring(cursorPos);
+//        display.setText(String.format("%s%s%s", leftStr, strToAdd, rightStr));
+
         display.setText(strToDisplay);
+        display.setSelection(cursorPos + strToAdd.length());
     }
 
+    public void clearField(){
+        strToDisplay.setLength(0);
+        display.setText(strToDisplay);
+    }
 }
