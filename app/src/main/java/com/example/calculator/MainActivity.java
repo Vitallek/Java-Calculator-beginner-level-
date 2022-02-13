@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private Button btnClear;
     private Button btnBackspace;
     private Button btnEqual;
+    //horizontal
+    private Button btnOpenBracket;
+    private Button btnCloseBracket;
+    private Button btnNumPower;
+    private Button btnExponent;
+    private Button btnPI;
+    private Button btnSin;
+    private Button btnCos;
+    private Button btnTan;
+    private Button btnLog10;
+    private Button btnHistory;
 
     private StringBuilder strToDisplay = new StringBuilder(""); //empty string for change
 
@@ -66,67 +78,112 @@ public class MainActivity extends AppCompatActivity {
         btnClear = findViewById(R.id.buttonClear);
         btnBackspace = findViewById(R.id.buttonBackspace);
         btnEqual = findViewById(R.id.buttonEqual);
+        //horizontal view
+        btnOpenBracket = findViewById(R.id.buttonOpenBracket);
+        btnCloseBracket = findViewById(R.id.buttonCloseBracket);
+        btnNumPower = findViewById(R.id.buttonNumPower);
+        btnExponent = findViewById(R.id.buttonExponent);
+        btnPI = findViewById(R.id.buttonPI);
+        btnSin = findViewById(R.id.buttonSin);
+        btnCos = findViewById(R.id.buttonCos);
+        btnTan = findViewById(R.id.buttonTan);
+        btnLog10 = findViewById(R.id.buttonLog10);
+        btnHistory = findViewById(R.id.buttonHistory);
 
         View.OnClickListener onClkBtn = new View.OnClickListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View view) {
-                if(view.getId() == R.id.button1){
-                    updateText(getResources().getString(R.string.oneText));
+                switch (view.getId()){
+                    case R.id.button1:
+                        updateText(getResources().getString(R.string.oneText));
+                        break;
+                    case R.id.button2:
+                        updateText(getResources().getString(R.string.twoText));
+                        break;
+                    case R.id.button3:
+                        updateText(getResources().getString(R.string.threeText));
+                        break;
+                    case R.id.button4:
+                        updateText(getResources().getString(R.string.fourText));
+                        break;
+                    case R.id.button5:
+                        updateText(getResources().getString(R.string.fiveText));
+                        break;
+                    case R.id.button6:
+                        updateText(getResources().getString(R.string.sixText));
+                        break;
+                    case R.id.button7:
+                        updateText(getResources().getString(R.string.sevenText));
+                        break;
+                    case R.id.button8:
+                        updateText(getResources().getString(R.string.eightText));
+                        break;
+                    case R.id.button9:
+                        updateText(getResources().getString(R.string.nineText));
+                        break;
+                    case R.id.button0:
+                        updateText(getResources().getString(R.string.zeroText));
+                        break;
+                    case R.id.buttonDivide:
+                        updateText(getResources().getString(R.string.divideText));
+                        break;
+                    case R.id.buttonMul:
+                        updateText(getResources().getString(R.string.multiplyText));
+                        break;
+                    case R.id.buttonMinus:
+                        updateText(getResources().getString(R.string.minusText));
+                        break;
+                    case R.id.buttonPlus:
+                        updateText(getResources().getString(R.string.plusText));
+                        break;
+                    case R.id.buttonPoint:
+                        updateText(getResources().getString(R.string.pointText));
+                        break;
+                    case R.id.buttonPercent:
+                        updateText(getResources().getString(R.string.percentText));
+                        break;
+                    case R.id.buttonClear:
+                        clearField();
+                        break;
+                    case R.id.buttonBackspace:
+                        backspacePush();
+                        break;
+                    case R.id.buttonEqual:
+                        equalBTNPush();
+                        break;
+                    //horizontal view
+                    case R.id.buttonOpenBracket:
+                        updateText(getResources().getString(R.string.openBracketText));
+                        break;
+                    case R.id.buttonCloseBracket:
+                        updateText(getResources().getString(R.string.closeBracketText));
+                        break;
+                    case R.id.buttonNumPower:
+                        updateText(getResources().getString(R.string.numPowerText));
+                        break;
+                    case R.id.buttonExponent:
+                        updateText(getResources().getString(R.string.exponentText));
+                        break;
+                    case R.id.buttonPI:
+                        updateText(getResources().getString(R.string.piTextMX));
+                        break;
+                    case R.id.buttonSin:
+                        updateText(getResources().getString(R.string.sinText));
+                        break;
+                    case R.id.buttonCos:
+                        updateText(getResources().getString(R.string.cosText));
+                        break;
+                    case R.id.buttonTan:
+                        updateText(getResources().getString(R.string.tanText));
+                        break;
+                    case R.id.buttonLog10:
+                        updateText(getResources().getString(R.string.log10Text));
+                        break;
+                    case R.id.buttonHistory:
+                        break;
                 }
-                if(view.getId() == R.id.button2){
-                    updateText(getResources().getString(R.string.twoText));
-                }
-                if(view.getId() == R.id.button3){
-                    updateText(getResources().getString(R.string.threeText));
-                }
-                if(view.getId() == R.id.button4){
-                    updateText(getResources().getString(R.string.fourText));
-                }
-                if(view.getId() == R.id.button5){
-                    updateText(getResources().getString(R.string.fiveText));
-                }
-                if(view.getId() == R.id.button6){
-                    updateText(getResources().getString(R.string.sixText));
-                }
-                if(view.getId() == R.id.button7){
-                    updateText(getResources().getString(R.string.sevenText));
-                }
-                if(view.getId() == R.id.button8){
-                    updateText(getResources().getString(R.string.eightText));
-                }
-                if(view.getId() == R.id.button9){
-                    updateText(getResources().getString(R.string.nineText));
-                }
-                if(view.getId() == R.id.button0){
-                    updateText(getResources().getString(R.string.zeroText));
-                }
-                if(view.getId() == R.id.buttonDivide){
-                    updateText(getResources().getString(R.string.divideText));
-                }
-                if(view.getId() == R.id.buttonMul){
-                    updateText(getResources().getString(R.string.multiplyText));
-                }
-                if(view.getId() == R.id.buttonMinus){
-                    updateText(getResources().getString(R.string.minusText));
-                }
-                if(view.getId() == R.id.buttonPlus){
-                    updateText(getResources().getString(R.string.plusText));
-                }
-                if(view.getId() == R.id.buttonPoint){
-                    updateText(getResources().getString(R.string.pointText));
-                }
-                if(view.getId() == R.id.buttonPercent){
-                    updateText(getResources().getString(R.string.percentText));
-                }
-                if(view.getId() == R.id.buttonClear){
-                    clearField();
-                }
-                if(view.getId() == R.id.buttonBackspace){
-                    backspacePush();
-                }
-                if(view.getId() == R.id.buttonEqual){
-                    equalBTNPush();
-                }
+
             }
         };
 
@@ -150,6 +207,17 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(onClkBtn);
         btnBackspace.setOnClickListener(onClkBtn);
         btnEqual.setOnClickListener(onClkBtn);
+        //horizontal view
+        btnOpenBracket.setOnClickListener(onClkBtn);
+        btnCloseBracket.setOnClickListener(onClkBtn);
+        btnNumPower.setOnClickListener(onClkBtn);
+        btnExponent.setOnClickListener(onClkBtn);
+        btnPI.setOnClickListener(onClkBtn);
+        btnSin.setOnClickListener(onClkBtn);
+        btnCos.setOnClickListener(onClkBtn);
+        btnTan.setOnClickListener(onClkBtn);
+        btnLog10.setOnClickListener(onClkBtn);
+        btnHistory.setOnClickListener(onClkBtn);
     }
 
     public void updateText(String strToAdd){
