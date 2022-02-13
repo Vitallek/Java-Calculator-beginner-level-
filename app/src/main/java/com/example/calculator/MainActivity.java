@@ -13,6 +13,7 @@ import org.mariuszgromada.math.mxparser.*;
 public class MainActivity extends AppCompatActivity {
 
     private TextView previousCalc;
+    private TextView resultCalc;
     private EditText display;
     private Button btn1;
     private Button btn2;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        previousCalc = findViewById(R.id.previousCalc); //last result
+        previousCalc = findViewById(R.id.previousCalc); //last expression
+        resultCalc = findViewById(R.id.result); // result
         display = findViewById(R.id.inputField); // string, which user writes and replaces with strToDisplay
         display.setShowSoftInputOnFocus(false); //hide keyboard when click
 
@@ -99,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
                     updateText(getResources().getString(R.string.zeroText));
                 }
                 if(view.getId() == R.id.buttonDivide){
-                    specialSymbolPush(getResources().getString(R.string.divideText));
+                    updateText(getResources().getString(R.string.divideText));
                 }
                 if(view.getId() == R.id.buttonMul){
-                    specialSymbolPush(getResources().getString(R.string.multiplyText));
+                    updateText(getResources().getString(R.string.multiplyText));
                 }
                 if(view.getId() == R.id.buttonMinus){
                     updateText(getResources().getString(R.string.minusText));
@@ -169,22 +171,6 @@ public class MainActivity extends AppCompatActivity {
         strToDisplay.setLength(0);
         display.setText(strToDisplay);
     }
-    //like updateText but replace ÷ to / , × to *
-    public void specialSymbolPush(String strToAdd){
-        int cursorPos = display.getSelectionStart();
-        //replacements
-        if(strToAdd == getResources().getString(R.string.divideText)){
-            strToAdd = getResources().getString(R.string.divideTextMX);
-        }
-        if(strToAdd == getResources().getString(R.string.multiplyText)){
-            strToAdd = getResources().getString(R.string.multiplyTextMX);
-        }
-
-        strToDisplay.insert(cursorPos,strToAdd);
-
-        display.setText(strToDisplay);
-        display.setSelection(cursorPos + strToAdd.length());
-    }
 
     public void backspacePush(){
         int cursorPos = display.getSelectionStart();
@@ -198,13 +184,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void equalBTNPush(){
         previousCalc.setText(strToDisplay);
+        String strToCalc = strToDisplay.toString();
+        // avoid MXparser restrictions: replacing ÷ to / , × to *
+        strToCalc = strToCalc.replaceAll(getResources().getString(R.string.divideText), "/");
+        strToCalc = strToCalc.replaceAll(getResources().getString(R.string.multiplyText), "*");
 
-        Expression exp = new Expression(strToDisplay.toString());
+        Expression exp = new Expression(strToCalc);
 
         String result = String.valueOf(exp.calculate());
 
-        display.setText(result);
-        display.setSelection(result.length());
+        resultCalc.setText(result);
+//        display.setSelection(result.length());
     }
 
 }
