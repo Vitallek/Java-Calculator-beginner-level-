@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnHistory;
 
     private StringBuilder strToDisplay = new StringBuilder(""); //empty string for change
-    private StringBuilder percentPart = new StringBuilder(""); //for percent operations
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,9 +270,10 @@ public class MainActivity extends AppCompatActivity {
         int cursorPos = display.getSelectionStart();
         int digitIndex = strToDisplay.length()-1;
 
+        StringBuilder percentPart = new StringBuilder(""); //for simple percent operations like 50% = 0.5
         percentPart.setLength(0);
 
-        while(digitIndex >= 0 && Character.isDigit(strToDisplay.charAt(digitIndex))){ //a number before % to percentPart
+        while(digitIndex >= 0 && Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.'){ //a number before % to percentPart
             percentPart.append(strToDisplay.charAt(digitIndex));
             strToDisplay.deleteCharAt(digitIndex);
             digitIndex--;
@@ -286,6 +286,28 @@ public class MainActivity extends AppCompatActivity {
 
         display.setText(strToDisplay);
         display.setSelection(digitIndex + percentPart.length());
+
+        //part2
+        if(strToDisplay.charAt(digitIndex) == '-' || strToDisplay.charAt(digitIndex) == '+'){
+            strToDisplay.delete(digitIndex + 1,digitIndex + String.valueOf(percentPartResult).length() + 1);
+            StringBuilder percentPart2 = new StringBuilder(""); //for percent operations with - and + like 200-50% = 100
+            percentPart.setLength(0);
+            percentPart.append(percentPartResult + "*");
+            digitIndex--; //from - or + to digit
+            while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before - to percentPart2
+                percentPart2.append(strToDisplay.charAt(digitIndex));
+                digitIndex--;
+            }
+            if(digitIndex < 0) digitIndex = 0;
+            percentPartResult = Double.parseDouble(percentPart2.reverse().toString());
+            percentPart.append(String.valueOf(percentPartResult));
+
+            Expression exp = new Expression(percentPart.toString());
+            strToDisplay.append(exp.calculate());
+            display.setText(strToDisplay);
+
+            display.setSelection(percentPart.length()-1);
+        }
     }
 
     public void backspacePush(){

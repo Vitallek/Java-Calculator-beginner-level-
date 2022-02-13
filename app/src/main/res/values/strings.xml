@@ -2,7 +2,7 @@
     <string name="app_name">Calculator</string>
 
     <string name="inputHint">0</string>
-    <string name="resultHint">11 :D</string>
+    <string name="resultHint">Result is here</string>
     <string name="lastExpression">Made by Vitallek</string>
 
     <string name="oneText">1</string>
