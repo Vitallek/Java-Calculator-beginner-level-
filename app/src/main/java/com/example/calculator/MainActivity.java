@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,11 +49,17 @@ public class MainActivity extends AppCompatActivity {
     private Button btnHistory;
 
     private StringBuilder strToDisplay = new StringBuilder(""); //empty string for change
+    private StringBuilder percentPart = new StringBuilder(""); //for percent operations
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
 
         previousCalc = findViewById(R.id.previousCalc); //last expression
         resultCalc = findViewById(R.id.result); // result
@@ -150,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         updateText(getResources().getString(R.string.pointText));
                         break;
                     case R.id.buttonPercent:
-                        updateText(getResources().getString(R.string.percentText));
+                        percentPush(getResources().getString(R.string.percentText));
                         break;
                     case R.id.buttonClear:
                         clearField();
@@ -258,6 +265,27 @@ public class MainActivity extends AppCompatActivity {
     public void clearField(){
         strToDisplay.setLength(0);
         display.setText(strToDisplay);
+    }
+
+    public void percentPush(String strToAdd){
+        int cursorPos = display.getSelectionStart();
+        int digitIndex = strToDisplay.length()-1;
+
+        percentPart.setLength(0);
+
+        while(digitIndex >= 0 && Character.isDigit(strToDisplay.charAt(digitIndex))){ //a number before % to percentPart
+            percentPart.append(strToDisplay.charAt(digitIndex));
+            strToDisplay.deleteCharAt(digitIndex);
+            digitIndex--;
+        }
+        if(digitIndex < 0) digitIndex = 0;
+
+        double percentPartResult = Double.parseDouble(percentPart.reverse().toString());
+        percentPartResult /= 100;
+        strToDisplay.append(String.valueOf(percentPartResult));
+
+        display.setText(strToDisplay);
+        display.setSelection(digitIndex + percentPart.length());
     }
 
     public void backspacePush(){
