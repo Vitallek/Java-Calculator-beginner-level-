@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/showResultField"
+        android:id="@+id/previousCalc"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:hint="@string/resultHint"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/showResultField"
+        app:layout_constraintTop_toBottomOf="@id/previousCalc"
         app:layout_constraintVertical_weight="1" />
 
 
@@ -52,7 +52,7 @@
         app:layout_constraintVertical_weight="3">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button1"
             style="@style/usualButton"
             android:text="@string/oneText"
 
@@ -72,7 +72,7 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintVertical_weight="1"
 
-            app:layout_constraintLeft_toRightOf="@+id/button"
+            app:layout_constraintLeft_toRightOf="@+id/button1"
             app:layout_constraintRight_toLeftOf="@+id/button3"
 
             app:layout_constraintTop_toTopOf="parent"
@@ -115,7 +115,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/button5"
 
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/button1"
             app:layout_constraintBottom_toTopOf="@+id/button7"/>
 
         <Button
@@ -278,7 +278,6 @@
             android:id="@+id/buttonBackspace"
             style="@style/usualButton"
             android:contentDescription="@string/backspaceText"
-            android:onClick="zeroBTNPush"
 
             android:text="@string/backspaceText"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -294,13 +293,14 @@
             style="@style/equalsButton"
             android:text="@string/equalsText"
 
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintVertical_weight="1"
             app:layout_constraintLeft_toRightOf="@+id/buttonBackspace"
             app:layout_constraintRight_toRightOf="parent"
 
             app:layout_constraintTop_toTopOf="@+id/buttonBackspace"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintVertical_weight="1"
+            tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
