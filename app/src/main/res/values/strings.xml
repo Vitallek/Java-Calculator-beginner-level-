@@ -31,7 +31,7 @@
 
     <string name="openBracketText">(</string>
     <string name="closeBracketText">)</string>
-    <string name="powerText">^</string>
+    <string name="NumPowerText">^</string>
     <string name="exponentText">E</string>
     <string name="piText">PI</string>
     <string name="sinText">SIN(</string>
