@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
-//import org.mariuszgromada.math.mxparser.*;
+import org.mariuszgromada.math.mxparser.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,18 +34,18 @@ public class MainActivity extends AppCompatActivity {
     private Button btnBackspace;
     private Button btnEqual;
 
-    private StringBuilder strToDisplay = new StringBuilder(""); //пустая строка для изменений
+    private StringBuilder strToDisplay = new StringBuilder(""); //empty string for change
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        previousCalc = findViewById(R.id.previousCalc); //прошлый результат
-        display = findViewById(R.id.inputField); // строка, которая вводится юзером и заменяется strToDisplay
-        display.setShowSoftInputOnFocus(false); //убрать клавиатуру по нажатию на поле ввода
+        previousCalc = findViewById(R.id.previousCalc); //last result
+        display = findViewById(R.id.inputField); // string, which user writes and replaces with strToDisplay
+        display.setShowSoftInputOnFocus(false); //hide keyboard when click
 
-        btn1 = findViewById(R.id.button1); //найти кнопки
+        btn1 = findViewById(R.id.button1); //find buttons
         btn2 = findViewById(R.id.button2);
         btn3 = findViewById(R.id.button3);
         btn4 = findViewById(R.id.button4);
@@ -99,36 +99,37 @@ public class MainActivity extends AppCompatActivity {
                     updateText(getResources().getString(R.string.zeroText));
                 }
                 if(view.getId() == R.id.buttonDivide){
-                    updateText(getResources().getString(R.string.twoText));
+                    specialSymbolPush(getResources().getString(R.string.divideText));
                 }
                 if(view.getId() == R.id.buttonMul){
-                    updateText(getResources().getString(R.string.twoText));
+                    specialSymbolPush(getResources().getString(R.string.multiplyText));
                 }
                 if(view.getId() == R.id.buttonMinus){
-                    updateText(getResources().getString(R.string.twoText));
+                    updateText(getResources().getString(R.string.minusText));
                 }
                 if(view.getId() == R.id.buttonPlus){
-                    updateText(getResources().getString(R.string.twoText));
+                    updateText(getResources().getString(R.string.plusText));
                 }
                 if(view.getId() == R.id.buttonPoint){
-                    updateText(getResources().getString(R.string.twoText));
+                    updateText(getResources().getString(R.string.pointText));
                 }
                 if(view.getId() == R.id.buttonPercent){
-                    updateText(getResources().getString(R.string.twoText));
+                    updateText(getResources().getString(R.string.percentText));
                 }
                 if(view.getId() == R.id.buttonClear){
                     clearField();
                 }
                 if(view.getId() == R.id.buttonBackspace){
-                    //
+                    backspacePush();
                 }
                 if(view.getId() == R.id.buttonEqual){
-                    //
+                    equalBTNPush();
                 }
             }
         };
 
-        btn1.setOnClickListener(onClkBtn); //повесить слушатели на кнопки
+        //add listeners to buttons
+        btn1.setOnClickListener(onClkBtn);
         btn2.setOnClickListener(onClkBtn);
         btn3.setOnClickListener(onClkBtn);
         btn4.setOnClickListener(onClkBtn);
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateText(String strToAdd){
         int cursorPos = display.getSelectionStart();
-        //my own may(works?)
+        //my own way(works?)
         strToDisplay.insert(cursorPos,strToAdd);
 
         //way from video(works)
@@ -168,4 +169,42 @@ public class MainActivity extends AppCompatActivity {
         strToDisplay.setLength(0);
         display.setText(strToDisplay);
     }
+    //like updateText but replace ÷ to / , × to *
+    public void specialSymbolPush(String strToAdd){
+        int cursorPos = display.getSelectionStart();
+        //replacements
+        if(strToAdd == getResources().getString(R.string.divideText)){
+            strToAdd = getResources().getString(R.string.divideTextMX);
+        }
+        if(strToAdd == getResources().getString(R.string.multiplyText)){
+            strToAdd = getResources().getString(R.string.multiplyTextMX);
+        }
+
+        strToDisplay.insert(cursorPos,strToAdd);
+
+        display.setText(strToDisplay);
+        display.setSelection(cursorPos + strToAdd.length());
+    }
+
+    public void backspacePush(){
+        int cursorPos = display.getSelectionStart();
+
+        if (cursorPos != 0){
+            strToDisplay.deleteCharAt(cursorPos-1);
+            display.setText(strToDisplay);
+            display.setSelection(cursorPos-1);
+        }
+    }
+
+    public void equalBTNPush(){
+        previousCalc.setText(strToDisplay);
+
+        Expression exp = new Expression(strToDisplay.toString());
+
+        String result = String.valueOf(exp.calculate());
+
+        display.setText(result);
+        display.setSelection(result.length());
+    }
+
 }

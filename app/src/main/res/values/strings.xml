@@ -19,7 +19,9 @@
     <string name="plusText">+</string>
     <string name="minusText">-</string>
     <string name="multiplyText">×</string>
+    <string name="multiplyTextMX">*</string>
     <string name="divideText">÷</string>
+    <string name="divideTextMX">/</string>
     <string name="equalsText">=</string>
 
     <string name="percentText">%</string>
