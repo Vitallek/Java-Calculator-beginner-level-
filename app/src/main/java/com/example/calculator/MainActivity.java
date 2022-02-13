@@ -59,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
         display = findViewById(R.id.inputField); // string, which user writes and replaces with strToDisplay
         display.setShowSoftInputOnFocus(false); //hide keyboard when click
 
+        if(savedInstanceState != null){
+            previousCalc.setText(savedInstanceState.getString("previousCalc"));
+            resultCalc.setText(savedInstanceState.getString("previousCalc"));
+            display.setText(savedInstanceState.getString("previousCalc"));
+
+            strToDisplay.setLength(0);
+            strToDisplay.append(savedInstanceState.getString("previousCalc"));
+        }
+
         btn1 = findViewById(R.id.button1); //find buttons
         btn2 = findViewById(R.id.button2);
         btn3 = findViewById(R.id.button3);
@@ -218,6 +227,17 @@ public class MainActivity extends AppCompatActivity {
         btnTan.setOnClickListener(onClkBtn);
         btnLog10.setOnClickListener(onClkBtn);
         btnHistory.setOnClickListener(onClkBtn);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        outState.putString("previousCalc",previousCalc.getText().toString());
+        outState.putString("resultCalc",resultCalc.getText().toString());
+        outState.putString("display",display.getText().toString());
+        outState.putString("strToDisplay",strToDisplay.toString());
     }
 
     public void updateText(String strToAdd){
