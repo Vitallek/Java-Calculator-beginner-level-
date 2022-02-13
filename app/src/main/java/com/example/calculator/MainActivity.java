@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         strToDisplay.append(String.valueOf(percentPartResult));
 
         display.setText(strToDisplay);
-        display.setSelection(digitIndex + percentPart.length()+1);
+        display.setSelection(digitIndex + String.valueOf(percentPartResult).length());
 
         //part2
         if(strToDisplay.charAt(digitIndex) == '-' || strToDisplay.charAt(digitIndex) == '+'){
