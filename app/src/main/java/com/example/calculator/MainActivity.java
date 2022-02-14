@@ -340,6 +340,8 @@ public class MainActivity extends AppCompatActivity {
                 strToDisplay.append(getResources().getString(R.string.closeBracketText));
             }
         }
+        display.setText(strToDisplay);
+        display.setSelection(strToDisplay.length());
 
         previousCalc.setText(strToDisplay);
         String strToCalc = strToDisplay.toString();
