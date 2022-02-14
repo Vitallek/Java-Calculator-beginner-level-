@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState != null){
             previousCalc.setText(savedInstanceState.getString("previousCalc"));
-            resultCalc.setText(savedInstanceState.getString("previousCalc"));
-            display.setText(savedInstanceState.getString("previousCalc"));
+            resultCalc.setText(savedInstanceState.getString("resultCalc"));
+            display.setText(savedInstanceState.getString("display"));
 
             strToDisplay.setLength(0);
-            strToDisplay.append(savedInstanceState.getString("previousCalc"));
+            strToDisplay.append(savedInstanceState.getString("strToDisplay"));
         }
 
         btn1 = findViewById(R.id.button1); //find buttons
