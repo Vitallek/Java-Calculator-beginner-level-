@@ -333,6 +333,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void equalBTNPush(){
+        //add close brackets
+        int openBrackets = openBracketAmount();
+        if(openBrackets > 0){
+            for(int i = 0; i < openBrackets; i++){
+                strToDisplay.append(getResources().getString(R.string.closeBracketText));
+            }
+        }
+
         previousCalc.setText(strToDisplay);
         String strToCalc = strToDisplay.toString();
         // avoid MXparser restrictions: replacing ÷ to / , × to *
@@ -360,5 +368,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    public int openBracketAmount(){
+        int counter = 0;
+        for(int i = 0; i<strToDisplay.length(); i++){
+            if(strToDisplay.charAt(i) == '('){
+                counter++;
+            }
+            if(strToDisplay.charAt(i) == ')'){
+                counter--;
+            }
+        }
+        return counter;
     }
 }
