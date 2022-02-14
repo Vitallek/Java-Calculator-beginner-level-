@@ -323,17 +323,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void backspacePush(){
-        try {
-            int cursorPos = display.getSelectionStart();
+        int cursorPos = display.getSelectionStart();
 
-            if (cursorPos != 0){
-                strToDisplay.deleteCharAt(cursorPos-1);
-                display.setText(strToDisplay);
-                display.setSelection(cursorPos-1);
-            }
-        }
-        catch (Exception ex){
-            clearField();
+        if (cursorPos != 0){
+            strToDisplay.deleteCharAt(cursorPos-1);
+            display.setText(strToDisplay);
+            display.setSelection(cursorPos-1);
         }
     }
 
