@@ -141,19 +141,19 @@ public class MainActivity extends AppCompatActivity {
                         updateText(getResources().getString(R.string.zeroText));
                         break;
                     case R.id.buttonDivide:
-                        updateText(getResources().getString(R.string.divideText));
+                        operatorPush(getResources().getString(R.string.divideText));
                         break;
                     case R.id.buttonMul:
-                        updateText(getResources().getString(R.string.multiplyText));
+                        operatorPush(getResources().getString(R.string.multiplyText));
                         break;
                     case R.id.buttonMinus:
-                        updateText(getResources().getString(R.string.minusText));
+                        operatorPush(getResources().getString(R.string.minusText));
                         break;
                     case R.id.buttonPlus:
-                        updateText(getResources().getString(R.string.plusText));
+                        operatorPush(getResources().getString(R.string.plusText));
                         break;
                     case R.id.buttonPoint:
-                        updateText(getResources().getString(R.string.pointText));
+                        operatorPush(getResources().getString(R.string.pointText));
                         break;
                     case R.id.buttonPercent:
                         percentPush(getResources().getString(R.string.percentText));
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         updateText(getResources().getString(R.string.closeBracketText));
                         break;
                     case R.id.buttonNumPower:
-                        updateText(getResources().getString(R.string.numPowerText));
+                        operatorPush(getResources().getString(R.string.numPowerText));
                         break;
                     case R.id.buttonExponent:
                         updateText(getResources().getString(R.string.exponentText));
@@ -261,62 +261,79 @@ public class MainActivity extends AppCompatActivity {
         display.setSelection(cursorPos + strToAdd.length());
     }
 
+    public void operatorPush(String strToAdd){ //like updateText() but with doubleOperatorCheck()
+        if(doubleOperatorCheck()){
+            int cursorPos = display.getSelectionStart();
+
+            strToDisplay.insert(cursorPos,strToAdd);
+            display.setText(strToDisplay);
+            display.setSelection(cursorPos + strToAdd.length());
+        }
+    }
+
     public void clearField(){
         strToDisplay.setLength(0);
         display.setText(strToDisplay);
     }
 
     public void percentPush(String strToAdd){
-        int cursorPos = display.getSelectionStart();
         int digitIndex = strToDisplay.length()-1;
 
-        StringBuilder percentPart = new StringBuilder(""); //for simple percent operations like 50% = 0.5
-        percentPart.setLength(0);
+        if(digitIndex >= 0 && Character.isDigit(strToDisplay.charAt(digitIndex))){
 
-        while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before % to percentPart
-            percentPart.append(strToDisplay.charAt(digitIndex));
-            strToDisplay.deleteCharAt(digitIndex);
-            digitIndex--;
-        }
-        if(digitIndex < 0) digitIndex = 0;
-
-        double percentPartResult = Double.parseDouble(percentPart.reverse().toString());
-        percentPartResult /= 100;
-        strToDisplay.append(String.valueOf(percentPartResult));
-
-        display.setText(strToDisplay);
-        display.setSelection(digitIndex + String.valueOf(percentPartResult).length());
-
-        //part2
-        if(strToDisplay.charAt(digitIndex) == '-' || strToDisplay.charAt(digitIndex) == '+'){
-            strToDisplay.delete(digitIndex + 1,digitIndex + String.valueOf(percentPartResult).length() + 1);
-            StringBuilder percentPart2 = new StringBuilder(""); //for percent operations with - and + like 200-50% = 100
+            StringBuilder percentPart = new StringBuilder(""); //for simple percent operations like 50% = 0.5
             percentPart.setLength(0);
-            percentPart.append(percentPartResult + "*");
-            digitIndex--; //from - or + to digit
-            while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before - to percentPart2
-                percentPart2.append(strToDisplay.charAt(digitIndex));
+
+            while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before % to percentPart
+                percentPart.append(strToDisplay.charAt(digitIndex));
+                strToDisplay.deleteCharAt(digitIndex);
                 digitIndex--;
             }
             if(digitIndex < 0) digitIndex = 0;
-            percentPartResult = Double.parseDouble(percentPart2.reverse().toString());
-            percentPart.append(String.valueOf(percentPartResult));
 
-            Expression exp = new Expression(percentPart.toString());
-            strToDisplay.append(exp.calculate());
+            double percentPartResult = Double.parseDouble(percentPart.reverse().toString());
+            percentPartResult /= 100;
+            strToDisplay.append(String.valueOf(percentPartResult));
+
             display.setText(strToDisplay);
+            display.setSelection(digitIndex + String.valueOf(percentPartResult).length());
 
-            display.setSelection(percentPart.length()-1);
+            //part2
+            if(strToDisplay.charAt(digitIndex) == '-' || strToDisplay.charAt(digitIndex) == '+'){
+                strToDisplay.delete(digitIndex + 1,digitIndex + String.valueOf(percentPartResult).length() + 1);
+                StringBuilder percentPart2 = new StringBuilder(""); //for percent operations with - and + like 200-50% = 100
+                percentPart.setLength(0);
+                percentPart.append(percentPartResult + "*");
+                digitIndex--; //from - or + to digit
+                while(digitIndex >= 0 && (Character.isDigit(strToDisplay.charAt(digitIndex)) || strToDisplay.charAt(digitIndex) == '.')){ //a number before - to percentPart2
+                    percentPart2.append(strToDisplay.charAt(digitIndex));
+                    digitIndex--;
+                }
+                if(digitIndex < 0) digitIndex = 0;
+                percentPartResult = Double.parseDouble(percentPart2.reverse().toString());
+                percentPart.append(String.valueOf(percentPartResult));
+
+                Expression exp = new Expression(percentPart.toString());
+                strToDisplay.append(exp.calculate());
+                display.setText(strToDisplay);
+
+                display.setSelection(percentPart.length()-1);
+            }
         }
     }
 
     public void backspacePush(){
-        int cursorPos = display.getSelectionStart();
+        try {
+            int cursorPos = display.getSelectionStart();
 
-        if (cursorPos != 0){
-            strToDisplay.deleteCharAt(cursorPos-1);
-            display.setText(strToDisplay);
-            display.setSelection(cursorPos-1);
+            if (cursorPos != 0){
+                strToDisplay.deleteCharAt(cursorPos-1);
+                display.setText(strToDisplay);
+                display.setSelection(cursorPos-1);
+            }
+        }
+        catch (Exception ex){
+            clearField();
         }
     }
 
@@ -335,4 +352,18 @@ public class MainActivity extends AppCompatActivity {
 //        display.setSelection(result.length());
     }
 
+    public boolean doubleOperatorCheck(){ //avoid 5++ or 6** expressions
+        if(strToDisplay.length() > 0){
+            switch (strToDisplay.charAt(strToDisplay.length() - 1)){
+                case '+':
+                case '-':
+                case '×':
+                case '÷':
+                case '.':
+                case '^':
+                    return false;
+            }
+        }
+        return true;
+    }
 }
