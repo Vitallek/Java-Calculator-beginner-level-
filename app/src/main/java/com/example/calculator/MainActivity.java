@@ -248,15 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateText(String strToAdd){
         int cursorPos = display.getSelectionStart();
-        //my own way(works?)
         strToDisplay.insert(cursorPos,strToAdd);
-
-        //way from video(works)
-//        String oldStr = display.getText().toString();
-//        String leftStr = oldStr.substring(0, cursorPos);
-//        String rightStr = oldStr.substring(cursorPos);
-//        display.setText(String.format("%s%s%s", leftStr, strToAdd, rightStr));
-
         display.setText(strToDisplay);
         display.setSelection(cursorPos + strToAdd.length());
     }
